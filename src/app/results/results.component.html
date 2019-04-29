@@ -1,3 +1,62 @@
-<p>
-  results works!
-</p>
+<div class="bullet-list steps" *ngIf="!isHttpReqStarted">
+  <ul>
+    <li [style.color]="'green'" *ngFor="let item of items">{{item}}</li>
+  </ul>
+</div>
+<mat-progress-spinner
+  *ngIf="showSpinner"
+  class="spinner-style"
+  color="primary"
+  mode="indeterminate"
+  value="50"
+  diameter="50">
+</mat-progress-spinner>
+<mat-accordion *ngIf="isHttpReqStarted && !showSpinner" class="svn-results">
+  <mat-expansion-panel [disabled]="true" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>PATH</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        <strong>Last Updated By:</strong>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let result of errorResultFromBackend; let i = index"
+                       [attr.data-index]="i">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{result.path}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{result.lastAuthor}} on {{result.lastDate}}
+        <mat-icon class="error">thumb_down</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="error">
+      {{result.message}}
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let result of successResultFromBackend; let i = index"
+                       [attr.data-index]="i"
+                       [disabled]="true" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{result.path}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{result.lastAuthor}} on {{result.lastDate}}
+        <mat-icon class="success-status">thumb_up</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+</mat-accordion>
+<footer>
+  <mat-toolbar class="mat-elevation-z0" style="min-height: 40px !important; height: 40px !important;">
+    <mat-toolbar-row>
+      <div class="footer-credits">
+        Developed and Maintained by - <strong>Dipak Maity</strong> & <strong>Avinash Gatreddi</strong>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</footer>

@@ -1,3 +1,14 @@
-<p>
-  login-creds-dialog works!
-</p>
+<mat-toolbar>Enter SVN Credentials</mat-toolbar>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.username" placeholder="Enter Username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.password" placeholder="Enter Password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="button-margin">
+  <button mat-stroked-button color="warn" (click)="onNoClick()">Cancel</button>
+  <span class="spacer"></span>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Login</button>
+</div>
